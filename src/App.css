@@ -1,0 +1,11 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  /* text-align: center; */
+}
+
+.text-lexorange {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-lexorange-rgb), var(--bs-text-opacity)) !important;
+}
