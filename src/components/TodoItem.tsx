@@ -11,8 +11,8 @@ export function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEdi
 }) {
     return (
         <div key={index} className='p-2 bg-white border-lexpurple border rounded-2' id='card-container'>
-            <div className='d-flex justify-content-between' id='card-title'>
-                <h6 className={'text-lexpurple'}>{todo.completed ? <del>{todo.title}</del> : todo.title}</h6>
+            <div className='d-flex justify-content-between align-items-center' id='card-title'>
+                <h6 className={'text-lexpurple mb-0'}>{todo.completed ? <del>{todo.title}</del> : todo.title}</h6>
                 <div className='d-flex gap-1'>
                     <Button variant='success' size='sm' type='button' onClick={() => completeTodo(index)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -44,8 +44,8 @@ export function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEdi
                     </Button>
                 </div>
             </div>
-            <div id='card-body'>
-                <p className='w-100 py-1 text-purple text-break text-pretty mb-0'>
+            <div id='card-body' className={'border-top mt-1'}>
+                <p className='w-100 py-1 text-black text-break text-pretty mb-0'>
                     {todo.body}
                 </p>
             </div>

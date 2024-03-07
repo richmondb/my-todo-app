@@ -12,6 +12,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --bs-border-opacity: 1;
+
   --bs-lexorange: #f4512c;
   --bs-lexlightorange: #ff7f4d;
   --bs-lexpurple: #5e1b89;
@@ -224,22 +226,22 @@ body {
   --bs-gradient: none;
 }
 .border-lexorange {
-  --bs-border-opacity: 1;
+  opacity: var(--bs-border-opacity);
   border-color:rgba(var(--bs-lexorange-rgb),var(--bs-border-opacity))!important
 }
 .border-lexlightorange {
-  --bs-border-opacity: 1;
+  opacity: var(--bs-border-opacity);
   border-color:rgba(var(--bs-lexlightorange-rgb),var(--bs-border-opacity))!important
 }
 .border-lexpurple {
-  --bs-border-opacity: 1;
+  opacity: var(--bs-border-opacity);
   border-color:rgba(var(--bs-lexpurple-rgb),var(--bs-border-opacity))!important
 }
 .border-lexlightpurple {
-  --bs-border-opacity: 1;
+  opacity: var(--bs-border-opacity);
   border-color:rgba(var(--bs-lexlightpurple-rgb),var(--bs-border-opacity))!important
 }
 .border-lexwhite {
-  --bs-border-opacity: 1;
+  opacity: var(--bs-border-opacity);
   border-color:rgba(var(--bs-lexwhite-rgb),var(--bs-border-opacity))!important
 }
