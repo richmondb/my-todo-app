@@ -155,12 +155,12 @@ function App() {
             {/*        ))}*/}
             {/*    </div>*/}
             {/*</div>*/}
-            <div style={{width: '900px'}}>
+            <div className={'border rounded-2'} style={{width: '900px'}}>
                 <div className={'p-2'}>
                     <h3 className='text-start text-lexorange'>Todo List</h3>
                 </div>
                 <div className={'d-flex'}>
-                    <div className={'w-50 border border-lexpurple p-2'}>
+                    <div className={'w-50 border-end border-top p-2'}>
                         <Form onSubmit={addTodo}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label className={'text-lexpurple'}>Todo Title</Form.Label>
@@ -193,10 +193,10 @@ function App() {
                                     type='button'>Remove all Todo</Button>
                         </div>
                     </div>
-                    <div className={'w-75 border border-lexpurple p-2'}>
+                    <div className={'w-75 border-top border-lexpurple p-2'}>
                         {todos.length === 0 ? <h6 className='text-center fs-3 text-lexorange'>No Todos Yet</h6> : null}
 
-                        <div className={'d-flex flex-column gap-2'}>
+                        <div className={'d-flex flex-column gap-1'}>
                             {todos.map((todo, index) => (
                                 <TodoItem key={index} index={index} todo={todo} removeTodo={removeTodo}
                                           editTodo={editTodo}
