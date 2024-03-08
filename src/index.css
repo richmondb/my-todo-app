@@ -36,7 +36,7 @@ body {
 }
 
 .btn-lexorange {
-  --bs-btn-color: #000;
+  --bs-btn-color: #fff;
   --bs-btn-bg: #f4512c;
   --bs-btn-border-color: #f4512c;
   --bs-btn-hover-color: #000;
