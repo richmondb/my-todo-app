@@ -10,11 +10,11 @@ export function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEdi
     editTodo: (index: number) => void
 }) {
     return (
-        <div key={index} className='p-2 bg-white border rounded-1' id='card-container'>
+        <div key={index} className={`p-2 bg-white border ${todo.completed ? 'border-lexpurple' : ''}  rounded-1`} id='card-container'>
             <div className='d-flex justify-content-between align-items-center' id='card-title'>
-                <h6 className={'text-lexpurple mb-0'}>{todo.completed ? <del>{todo.title}</del> : todo.title}</h6>
+                <h6 className={`text-lexpurple mb-0 ${todo.completed ? 'text-decoration-line-through' : ''}`}>{todo.title}</h6>
                 <div className='d-flex gap-1'>
-                    <Button variant='success' size='sm' type='button' onClick={() => completeTodo(index)}>
+                    <Button variant='outline-success' size='sm' type='button' onClick={() => completeTodo(index)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              className="bi bi-check-square" viewBox="0 0 16 16">
                             <title>Mark as Complete</title>
@@ -24,7 +24,7 @@ export function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEdi
                                 d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                         </svg>
                     </Button>
-                    <Button variant='secondary' size='sm' type='button' onClick={() => editTodo(index)}>
+                    <Button variant={'outline-secondary'} size='sm' type='button' onClick={() => editTodo(index)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              className="bi bi-pencil-square" viewBox="0 0 16 16">
                             <title>Edit Todo</title>
@@ -34,7 +34,7 @@ export function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEdi
                                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                         </svg>
                     </Button>
-                    <Button variant='danger' size='sm' type='button' disabled={isEditing} onClick={() => removeTodo(index)}>
+                    <Button variant='outline-danger' size='sm' type='button' disabled={isEditing} onClick={() => removeTodo(index)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              className="bi bi-trash3" viewBox="0 0 16 16">
                             <title>Delete Todo</title>
@@ -45,12 +45,12 @@ export function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEdi
                 </div>
             </div>
             <div id='card-body' className={'border-top mt-2'}>
-                <p className='w-100 py-1 text-black/. text-break text-pretty mb-0'>
+                <p className={`w-100 py-1 ${todo.completed ? 'text-decoration-line-through' : ''} text-black  text-break text-pretty mb-0`}>
                     {todo.body}
                 </p>
             </div>
             <div className={'d-flex justify-content-end'}>
-                <p style={{fontSize: '0.8rem'}} className='mb-0 text-lexorange text-opacity-75'>Date
+                <p style={{fontSize: '0.8rem'}} className={'mb-0 text-lexorange text-opacity-75'}>Date
                     Created: {todo.date}</p>
             </div>
 

@@ -155,7 +155,7 @@ function App() {
             {/*        ))}*/}
             {/*    </div>*/}
             {/*</div>*/}
-            <div className={'border rounded-2'} style={{width: '900px'}}>
+            <div className={'border border-lexpurple rounded-2'} style={{width: '900px'}}>
                 <div className={'p-2'}>
                     <h3 className='text-start text-lexorange'>Todo List</h3>
                 </div>
@@ -174,26 +174,26 @@ function App() {
                                               rows={4} placeholder='My Todo Description'/>
                             </Form.Group>
                             <div className='d-flex gap-2'>
-                                <Button className={'btn-lexorange w-100'} disabled={isEditing} type='submit'>Add
+                                <Button className={'btn-lexpurple w-100'} disabled={isEditing} type='submit'>Add
                                     Todo</Button>
                                 {isEditing ?
-                                    <Button className={'btn-lexorange w-100'} type='button' variant='info'
+                                    <Button className={'btn-lexpurple w-100'} type='button' variant='info'
                                             onClick={() => saveEdit(Number(editingIndex))}>Save
                                         Edit</Button> : null}
                             </div>
                         </Form>
                         <div className={'d-flex flex-column gap-2 mt-5 pt-5'}>
-                            <Button className={'btn-lexorange w-100'} disabled={isEditing} onClick={markAllComplete} variant={'outline-primary'}
+                            <Button className={'btn-outline-lexpurple w-100'} disabled={isEditing} onClick={markAllComplete} variant={'outline-primary'}
                                     type='button'>Mark all as Complete</Button>
-                            <Button className={'btn-lexorange w-100'} disabled={isEditing} onClick={markAllIncomplete} variant={'outline-primary'}
+                            <Button className={'btn-outline-lexpurple w-100'} disabled={isEditing} onClick={markAllIncomplete} variant={'outline-primary'}
                                     type='button'>Mark all as Incomplete</Button>
-                            <Button className={'btn-lexorange w-100'} disabled={isEditing} onClick={removeCompleted} variant={'outline-primary'}
+                            <Button className={'btn-outline-lexpurple w-100'} disabled={isEditing} onClick={removeCompleted} variant={'outline-primary'}
                                     type='button'>Remove all Completed</Button>
-                            <Button className={'btn-lexorange w-100'} disabled={isEditing} onClick={() => setTodos([])} variant={'outline-danger'}
+                            <Button className={'w-100'} disabled={isEditing} onClick={() => setTodos([])} variant={'outline-danger'}
                                     type='button'>Remove all Todo</Button>
                         </div>
                     </div>
-                    <div className={'w-75 border-top border-lexpurple p-2'}>
+                    <div className={'w-75 border-top  p-2'}>
                         {todos.length === 0 ? <h6 className='text-center fs-3 text-lexorange'>No Todos Yet</h6> : null}
 
                         <div className={'d-flex flex-column gap-1'}>
@@ -208,8 +208,6 @@ function App() {
                     </div>
                 </div>
             </div>
-
-
         </>
     )
 }
