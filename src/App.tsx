@@ -114,50 +114,12 @@ function App() {
 
     return (
         <>
-            {/*<div className='d-relative' style={{width: '600px'}}>*/}
-            {/*    <div>*/}
-            {/*        <h1 className='text-center text-lexorange'>Todo List</h1>*/}
-            {/*    </div>*/}
-            {/*    <div className='p-3 bg-light rounded-3'>*/}
-            {/*        <Form onSubmit={addTodo}>*/}
-            {/*            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">*/}
-            {/*                <Form.Label className={'text-lexpurple'}>Todo Title</Form.Label>*/}
-            {/*                <Form.Control value={todoTitle} onChange={(e) => setTodoTitle(e.target.value)} required*/}
-            {/*                              type="text" placeholder="My Todo Title"/>*/}
-            {/*            </Form.Group>*/}
-            {/*            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">*/}
-            {/*                <Form.Label className={'text-lexpurple'}>Todo Description</Form.Label>*/}
-            {/*                <Form.Control value={todoBody} onChange={(e) => setTodoBody(e.target.value)} as="textarea"*/}
-            {/*                              rows={4} placeholder='My Todo Description'/>*/}
-            {/*            </Form.Group>*/}
-            {/*            <div className='d-flex justify-content-end gap-2'>*/}
-            {/*                {isEditing ?*/}
-            {/*                    <Button type='button' variant='info' onClick={() => saveEdit(Number(editingIndex))}>Save*/}
-            {/*                        Edit</Button> : null}*/}
-            {/*                <Button className={'btn-lexorange'} disabled={isEditing} type='submit'>Add Todo</Button>*/}
-            {/*            </div>*/}
-            {/*        </Form>*/}
-            {/*    </div>*/}
-
-            {/*    <div className='pt-2'>*/}
-            {/*        <h6 className={'text-lexpurple'}>My Todos</h6>*/}
-            {/*    </div>*/}
-
-            {/*    <div className='d-flex flex-column gap-2 p-3 bg-light rounded-3'>*/}
-
-            {/*        {todos.length === 0 ? <h6 className='text-center fs-3 text-lexorange'>No Todos Yet</h6> : null}*/}
-
-            {/*        {todos.map((todo, index) => (*/}
-            {/*            <TodoItem key={index} index={index} todo={todo} removeTodo={removeTodo} editTodo={editTodo}*/}
-            {/*                      completeTodo={completeTodo} isEditing={isEditing}/>*/}
-            {/*        ))}*/}
-            {/*    </div>*/}
-            {/*</div>*/}
             <div className={'border border-lexpurple rounded-2'} style={{width: '900px'}}>
                 <div className={'p-2'}>
                     <h3 className='text-start text-lexorange'>Todo List</h3>
                 </div>
                 <div className={'d-flex'}>
+                    {/* Left Side of the Panel */}
                     <div className={'w-50 border-end border-top border-lexpurple p-2'}>
                         <Form onSubmit={addTodo}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -197,6 +159,8 @@ function App() {
                                     type='button'>Remove all Todo</Button>
                         </div>
                     </div>
+
+                    {/* Right Side of the Panel */}
                     <div className={'w-75 border-top border-lexpurple p-2'}>
                         {todos.length === 0 ?
                             <div className={'h-100 d-flex justify-content-center align-items-center flex-column'}>
