@@ -1,7 +1,7 @@
 import Todo from "../interface/Todo";
 import Button from "react-bootstrap/Button";
 
-export function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: {
+function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: {
     index: number,
     isEditing: boolean,
     todo: Todo,
@@ -57,3 +57,5 @@ export function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEdi
         </div>
     );
 }
+
+export default TodoItem;
