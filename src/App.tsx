@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import React, {useEffect} from 'react';
 import {TodoItem} from "./components/TodoItem.tsx";
 import Todo from "./interface/Todo.ts";
+import emptyLogo from "./assets/empty-list.svg"
 
 function App() {
     const [todos, setTodos] = React.useState<Todo[]>([]);
@@ -161,12 +162,14 @@ function App() {
                         <Form onSubmit={addTodo}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Todo Title</Form.Label>
-                                <Form.Control className={'border-lexlightorange'} value={todoTitle} onChange={(e) => setTodoTitle(e.target.value)} required
+                                <Form.Control className={'border-lexlightorange'} value={todoTitle}
+                                              onChange={(e) => setTodoTitle(e.target.value)} required
                                               type="text" placeholder="My Todo Title"/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                 <Form.Label>Todo Description</Form.Label>
-                                <Form.Control className={'border-lexlightorange'} value={todoBody} onChange={(e) => setTodoBody(e.target.value)}
+                                <Form.Control className={'border-lexlightorange'} value={todoBody}
+                                              onChange={(e) => setTodoBody(e.target.value)}
                                               as="textarea"
                                               rows={4} placeholder='My Todo Description'/>
                             </Form.Group>
@@ -194,18 +197,21 @@ function App() {
                                     type='button'>Remove all Todo</Button>
                         </div>
                     </div>
-                    <div className={'w-75 border-top border-lexpurple  p-2'}>
-                        {todos.length === 0 ? <h6 className='text-center fs-3 text-lexorange'>No Todos Yet</h6> : null}
-
-                        <div className={'d-flex flex-column gap-1'}>
-                            {todos.map((todo, index) => (
-                                <TodoItem key={index} index={index} todo={todo} removeTodo={removeTodo}
-                                          editTodo={editTodo}
-                                          completeTodo={completeTodo} isEditing={isEditing}/>
-                            ))}
-                        </div>
-
-
+                    <div className={'w-75 border-top border-lexpurple p-2'}>
+                        {todos.length === 0 ?
+                            <div className={'h-100 d-flex justify-content-center align-items-center flex-column'}>
+                                <img src={emptyLogo} alt="empty-task"/>
+                                <h3 className={'text-lexpurple'}>Empty List</h3>
+                            </div>
+                            :
+                            <div className={'d-flex flex-column gap-1'}>
+                                {todos.map((todo, index) => (
+                                    <TodoItem key={index} index={index} todo={todo} removeTodo={removeTodo}
+                                              editTodo={editTodo}
+                                              completeTodo={completeTodo} isEditing={isEditing}/>
+                                ))}
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
