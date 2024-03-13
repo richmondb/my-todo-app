@@ -111,7 +111,7 @@ function App() {
     }, [todos]);
 
     return (<>
-        <div className={'border border-lexpurple rounded-2'} style={{width: '900px'}}>
+        <div className={'shadow border border-lexpurple rounded-2'} style={{width: '900px'}}>
             <div className={'p-2'}>
                 <h3 className='text-center text-lexorange'>Todo List</h3>
             </div>
