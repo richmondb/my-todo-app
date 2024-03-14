@@ -36,7 +36,7 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
                         </svg>
                     </Button>
                     <ItemConfirmModal Disabled={isEditing}
-                                      ModalHeading={"Remove Todo"}
+                                      ModalHeading={"Delete Todo"}
                                       ModalBody={"Would you like to Delete this Todo?"}
                                       Onclick={() => removeTodo(index)}/>
                 </div>
