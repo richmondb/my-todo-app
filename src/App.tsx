@@ -131,17 +131,23 @@ function App() {
                 <div className={'w-50 border-end border-top border-lexpurple p-2'}>
                     <Form onSubmit={addTodo}>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Todo Title</Form.Label>
+                            <div className={'d-flex gap-1'}>
+                                <Form.Label>Todo Title</Form.Label>
+                                <p className={'fs-6 fw-lighter text-black-50 mb-0'}>(Required)</p>
+                            </div>
                             <Form.Control className={'border-lexlightorange'} value={todoTitle}
                                           onChange={(e) => setTodoTitle(e.target.value)} required
                                           type="text" placeholder="My Todo Title"/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Label>Todo Description</Form.Label>
+                            <div className={'d-flex gap-1'}>
+                                <Form.Label>Todo Description</Form.Label>
+                                <p className={'fs-6 text-black-50 mb-0'}>(Optional)</p>
+                            </div>
                             <Form.Control className={'border-lexlightorange'} value={todoBody}
-                                          onChange={(e) => setTodoBody(e.target.value)}
-                                          as="textarea"
-                                          rows={4} placeholder='My Todo Description'/>
+                                              onChange={(e) => setTodoBody(e.target.value)}
+                                              as="textarea"
+                                              rows={4} placeholder='My Todo Description'/>
                         </Form.Group>
                         <div className='d-flex gap-2'>
                             <Button className={'btn-lexorange w-100'} disabled={isEditing} type='submit'>Add
