@@ -23,15 +23,9 @@ function App() {
     const addTodo: (e: React.FormEvent) => void = (e: React.FormEvent): void => {
         e.preventDefault();
         // Use a functional update to ensure we always have the most current state
-        setTodos(prevTodos => [
-            ...prevTodos,
-            {
-                title: todoTitle,
-                body: todoBody,
-                completed: false,
-                date: new Date().toLocaleString()
-            }
-        ]);
+        setTodos(prevTodos => [...prevTodos, {
+            title: todoTitle, body: todoBody, completed: false, date: new Date().toLocaleString()
+        }]);
         // Reset the form input contents
         setTodoTitle('');
         setTodoBody('');
