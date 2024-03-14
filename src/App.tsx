@@ -5,6 +5,7 @@ import React, {useEffect} from 'react';
 import TodoItem from "./components/TodoItem.tsx";
 import Todo from "./interface/Todo.ts";
 import emptyLogo from "./assets/empty-list.svg"
+import ConfirmModal from "./components/ConfirmModal.tsx";
 
 function App() {
     const [todos, setTodos] = React.useState<Todo[]>([]);
@@ -92,7 +93,7 @@ function App() {
      * Executes the specified effect function when the component mounts, retrieving and setting the 'todos' state from localStorage if it exists.
      */
     useEffect(() => {
-        if (localStorage.getItem('todos') !== null) {
+        if (localStorage.getItem('todos') != null) {
             setTodos(JSON.parse(localStorage.getItem('todos') || '[]'));
         }
     }, []);
@@ -147,12 +148,13 @@ function App() {
                         <Button className={'btn-outline-lexpurple w-100'} disabled={isEditing}
                                 onClick={markAllIncomplete} variant={'outline-primary'}
                                 type='button'>Mark all as Incomplete</Button>
-                        <Button className={'btn-outline-lexpurple w-100'} disabled={isEditing}
+                        <Button className={'btn-outline-lexpurple'} disabled={isEditing}
                                 onClick={removeCompleted} variant={'outline-primary'}
                                 type='button'>Remove all Completed</Button>
-                        <Button className={'w-100'} disabled={isEditing} onClick={() => setTodos([])}
-                                variant={'outline-danger'}
-                                type='button'>Remove all Todo</Button>
+                        <ConfirmModal Disabled={isEditing} ButtonName={'Remove all Todos'}
+                                      ModalHeading={'Delete all Todos'}
+                                      Onclick={() => setTodos([])}
+                                      ModalBody={'Would you like to Delete all Todos?'}/>
                     </div>
                 </div>
 
