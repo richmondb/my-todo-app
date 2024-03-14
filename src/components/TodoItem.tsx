@@ -1,5 +1,6 @@
 import Todo from "../interface/Todo";
 import Button from "react-bootstrap/Button";
+import ItemConfirmModal from "./ItemConfirmModal.tsx";
 
 function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: {
     index: number,
@@ -9,12 +10,12 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
     completeTodo: (index: number) => void,
     editTodo: (index: number) => void
 }) {
-    return (
-        <div key={index} className={`p-2 bg-white border ${todo.completed ? 'border-lexpurple' : ''}  rounded-1`} id='card-container'>
+    return (<div key={index} className={`p-2 bg-white border ${todo.completed ? 'border-lexpurple' : ''}  rounded-1`}
+                 id='card-container'>
             <div className='d-flex justify-content-between align-items-center' id='card-title'>
                 <h6 className={`text-lexpurple mb-0 ${todo.completed ? 'text-decoration-line-through' : ''}`}>{todo.title}</h6>
                 <div className='d-flex gap-1'>
-                    <Button variant='outline-success' size='sm' type='button' onClick={() => completeTodo(index)}>
+                    <Button variant='outline-success' size='sm' type='button' disabled={isEditing} onClick={() => completeTodo(index)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              className="bi bi-check-square" viewBox="0 0 16 16">
                             <title>Mark as Complete</title>
@@ -34,14 +35,10 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
                                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                         </svg>
                     </Button>
-                    <Button variant='outline-danger' size='sm' type='button' disabled={isEditing} onClick={() => removeTodo(index)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             className="bi bi-trash3" viewBox="0 0 16 16">
-                            <title>Delete Todo</title>
-                            <path
-                                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                        </svg>
-                    </Button>
+                    <ItemConfirmModal Disabled={isEditing}
+                                      ModalHeading={"Remove Todo"}
+                                      ModalBody={"Would you like to Delete this Todo?"}
+                                      Onclick={() => removeTodo(index)}/>
                 </div>
             </div>
             <div id='card-body' className={'border-top mt-2'}>
@@ -54,8 +51,7 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
                     Created: {todo.date}</p>
             </div>
 
-        </div>
-    );
+        </div>);
 }
 
 export default TodoItem;
