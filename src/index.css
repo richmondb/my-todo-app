@@ -148,7 +148,7 @@ body {
 .btn-outline-lexorange {
   --bs-btn-color: #f4512c;
   --bs-btn-border-color: #f4512c;
-  --bs-btn-hover-color: #000;
+  --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #f4512c;
   --bs-btn-hover-border-color: #f4512c;
   --bs-btn-focus-shadow-rgb: 244, 81, 44;
