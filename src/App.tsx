@@ -22,11 +22,21 @@ function App() {
      */
     const addTodo: (e: React.FormEvent) => void = (e: React.FormEvent): void => {
         e.preventDefault();
+        // Use a functional update to ensure we always have the most current state
+        setTodos(prevTodos => [
+            ...prevTodos,
+            {
+                title: todoTitle,
+                body: todoBody,
+                completed: false,
+                date: new Date().toLocaleString()
+            }
+        ]);
         // Reset the form input contents
-        setTodos([...todos, {title: todoTitle, body: todoBody, completed: false, date: new Date().toLocaleString()}])
         setTodoTitle('');
         setTodoBody('');
     };
+
 
     /**
      * Removes a todo item at the specified index.
@@ -35,10 +45,13 @@ function App() {
      * @return {void}
      */
     const removeTodo: (index: number) => void = (index: number): void => {
-        const newTodos = [...todos];
-        newTodos.splice(index, 1);
-        setTodos(newTodos);
+        setTodos(prevTodos => {
+            const newTodos = [...prevTodos];
+            newTodos.splice(index, 1);
+            return newTodos;
+        });
     };
+
 
     /**
      * Toggle the completion status of a todo at the specified index.
@@ -46,24 +59,27 @@ function App() {
      * @param {number} index - The index of the todo to be toggled
      * @return {void}
      */
-    const completeTodo: (index: number) => void = (index: number): void => {
-        const newTodos = [...todos];
-        newTodos[index].completed = !newTodos[index].completed;
-        setTodos(newTodos);
+    const completeTodo = (index: number): void => {
+        setTodos((prevTodos) => prevTodos.map((todo, i) => i === index ? {...todo, completed: !todo.completed} : todo));
     };
+
     /**
      * Edit a specific todo item.
      *
      * @param {number} index - The index of the todo item to edit
      * @return {void}
      */
-    const editTodo: (index: number) => void = (index: number): void => {
-        const newTodos = [...todos];
-        setTodoTitle(newTodos[index].title);
-        setTodoBody(newTodos[index].body);
+    const editTodo = (index: number): void => {
+        // Access the specific todo item using destructuring
+        const {title, body} = todos[index] || {};
+
+        // Set state values for editing
+        setTodoTitle(title);
+        setTodoBody(body);
         setEditingIndex(index);
         setEditing(true);
     };
+
 
     /**
      * Saves the edit for the specified todo item at the given index.
@@ -71,23 +87,23 @@ function App() {
      * @param {number} index - The index of the todo item to be edited
      * @return {void}
      */
-    const saveEdit: (index: number) => void = (index: number): void => {
-        const newTodos = [...todos];
-        newTodos[index].title = todoTitle;
-        newTodos[index].body = todoBody;
-        setTodos(newTodos);
+    const saveEdit = (index: number): void => {
+        setTodos((prevTodos) => prevTodos.map((todo, i) => i === index ? {
+            ...todo, title: todoTitle, body: todoBody
+        } : todo));
+        // Reset state for new todo input
         setTodoTitle('');
         setTodoBody('');
         setEditingIndex(0);
         setEditing(false);
     };
 
+
     const removeCompleted = (): void => setTodos(todos.filter(todo => !todo.completed));
 
     const markAllComplete = (): void => setTodos(todos.map(todo => ({...todo, completed: true})));
 
     const markAllIncomplete = (): void => setTodos(todos.map(todo => ({...todo, completed: false})));
-
 
     /**
      * Executes the specified effect function when the component mounts, retrieving and setting the 'todos' state from localStorage if it exists.
