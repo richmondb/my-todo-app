@@ -47,7 +47,7 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
                 </p>
             </div>
             <div className={'d-flex justify-content-end'}>
-                <p style={{fontSize: '0.8rem'}} className={'mb-0 text-lexorange text-opacity-75'}>Date
+                <p className={'mb-0 small text-lexorange text-opacity-75'}>Date
                     Created: {todo.date}</p>
             </div>
 
