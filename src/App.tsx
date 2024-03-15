@@ -132,7 +132,7 @@ function App() {
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <div className={'d-flex gap-1'}>
                                 <Form.Label>Todo Title</Form.Label>
-                                <p className={'fs-6 fw-lighter text-black-50 mb-0'}>(Required)</p>
+                                <p className={'small fw-lighter text-black-50 mb-0'}>(Required)</p>
                             </div>
                             <Form.Control className={'border-lexlightorange'} value={todoTitle}
                                           onChange={(e) => setTodoTitle(e.target.value)} required
@@ -141,7 +141,7 @@ function App() {
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <div className={'d-flex gap-1'}>
                                 <Form.Label>Todo Description</Form.Label>
-                                <p className={'fs-6 text-black-50 mb-0'}>(Optional)</p>
+                                <p className={'small text-black-50 mb-0'}>(Optional)</p>
                             </div>
                             <Form.Control className={'border-lexlightorange'} value={todoBody}
                                               onChange={(e) => setTodoBody(e.target.value)}
@@ -178,7 +178,7 @@ function App() {
                     {todos.length === 0 ?
                         <div className={'h-100 d-flex justify-content-center align-items-center flex-column'}>
                             <img src={emptyLogo} alt="empty-task"/>
-                            <h3 className={'text-lexpurple'}>Empty List</h3>
+                            <h3 className={'text-lexpurple'}>Empty Todo</h3>
                         </div> : <div className={'d-flex flex-column gap-1'}>
                             {todos.map((todo, index) => (
                                 <TodoItem key={index} index={index} todo={todo} removeTodo={removeTodo}
