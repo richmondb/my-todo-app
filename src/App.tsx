@@ -1,5 +1,4 @@
 import Form from 'react-bootstrap/Form';
-import './App.css'
 import Button from 'react-bootstrap/Button';
 import React, {useEffect} from 'react';
 import TodoItem from "./components/TodoItem.tsx";
@@ -122,13 +121,13 @@ function App() {
     }, [todos]);
 
     return (<>
-        <div className={'shadow border border-lexpurple rounded-2'} style={{width: '900px'}}>
+        <div className={'container-custom shadow border border-lexpurple rounded-2'}>
             <div className={'p-2'}>
                 <h3 className='text-center text-lexorange'>Todo List</h3>
             </div>
             <div className={'d-flex'}>
                 {/* Left Side of the Panel */}
-                <div className={'w-50 border-end border-top border-lexpurple p-2'}>
+                <div className={'w-50 d-flex flex-column justify-content-between border-end border-top border-lexpurple p-2'}>
                     <Form onSubmit={addTodo}>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <div className={'d-flex gap-1'}>
@@ -157,7 +156,7 @@ function App() {
                                 Edit</Button> : null}
                         </div>
                     </Form>
-                    <div className={'d-flex flex-column gap-2 mt-5 pt-5'}>
+                    <div className={'d-flex flex-column gap-2'}>
                         <Button className={'btn-outline-lexpurple w-100'} disabled={isEditing}
                                 onClick={markAllComplete} variant={'outline-primary'}
                                 type='button'>Mark all as Complete</Button>
@@ -175,7 +174,7 @@ function App() {
                 </div>
 
                 {/* Right Side of the Panel */}
-                <div className={'w-75 border-top border-lexpurple p-2'}>
+                <div className={'w-75 container-todo border-top border-lexpurple p-2'}>
                     {todos.length === 0 ?
                         <div className={'h-100 d-flex justify-content-center align-items-center flex-column'}>
                             <img src={emptyLogo} alt="empty-task"/>
