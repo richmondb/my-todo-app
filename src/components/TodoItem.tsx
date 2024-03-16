@@ -13,9 +13,9 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
     return (<div key={index} className={`p-2 bg-white border ${todo.completed ? 'border-lexpurple' : ''}  rounded-1`}
                  id='card-container'>
             <div className='d-flex justify-content-between align-items-center' id='card-title'>
-                <h6 className={`text-lexpurple mb-0 ${todo.completed ? 'text-decoration-line-through' : ''}`}>{todo.title}</h6>
-                <div className='d-flex gap-1'>
-                    <Button variant='outline-success' size='sm' type='button' disabled={isEditing} onClick={() => completeTodo(index)}>
+                <h6 className={`text-lexpurple fw-semibold mb-0 ${todo.completed ? 'text-decoration-line-through opacity-75' : ''}`}>{todo.title}</h6>
+                <div className='d-flex gap-2'>
+                    <Button variant='outline-success' className={'btn-outline-lexorange'} size='sm' type='button' disabled={isEditing} onClick={() => completeTodo(index)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              className="bi bi-check-square" viewBox="0 0 16 16">
                             <title>Mark as Complete</title>
@@ -25,7 +25,7 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
                                 d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                         </svg>
                     </Button>
-                    <Button variant={'outline-secondary'} size='sm' type='button' onClick={() => editTodo(index)}>
+                    <Button variant={'outline-secondary'} className={'btn-outline-lexpurple'} size='sm' type='button' onClick={() => editTodo(index)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              className="bi bi-pencil-square" viewBox="0 0 16 16">
                             <title>Edit Todo</title>
@@ -36,18 +36,18 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
                         </svg>
                     </Button>
                     <ItemConfirmModal Disabled={isEditing}
-                                      ModalHeading={"Delete Todo"}
-                                      ModalBody={"Would you like to Delete this Todo?"}
+                                      ModalHeading={"Remove Todo"}
+                                      ModalBody={"Would you like to Remove this Todo?"}
                                       Onclick={() => removeTodo(index)}/>
                 </div>
             </div>
             <div id='card-body' className={'border-top mt-2'}>
-                <p className={`w-100 py-1 ${todo.completed ? 'text-decoration-line-through' : ''} text-black  text-break text-pretty mb-0`}>
+                <p className={`w-100 py-1 ${todo.completed ? 'text-decoration-line-through opacity-75' : ''} text-lexpurple  text-break text-pretty mb-0`}>
                     {todo.body}
                 </p>
             </div>
             <div className={'d-flex justify-content-end'}>
-                <p className={'mb-0 small text-lexorange text-opacity-75'}>Date
+                <p className={'mb-0 small text-lexlightpurple text-opacity-75'}>Date
                     Created: {todo.date}</p>
             </div>
 

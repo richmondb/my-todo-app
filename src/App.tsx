@@ -121,29 +121,29 @@ function App() {
     }, [todos]);
 
     return (<>
-        <div className={'container-custom shadow border border-lexpurple rounded-2'}>
+        <div className={'container-custom shadow-lg border border-dark-subtle rounded-2'}>
             <div className={'p-2'}>
                 <h3 className='text-center text-lexorange'>Todo List</h3>
             </div>
             <div className={'d-flex'}>
                 {/* Left Side of the Panel */}
-                <div className={'w-50 d-flex flex-column justify-content-between border-end border-top border-lexpurple p-2'}>
+                <div className={'w-50 d-flex flex-column justify-content-between border-end border-top border-dark-subtle p-2'}>
                     <Form onSubmit={addTodo}>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <div className={'d-flex gap-1'}>
-                                <Form.Label>Todo Title</Form.Label>
-                                <p className={'small fw-lighter text-black-50 mb-0'}>(Required)</p>
+                                <Form.Label className={'text-lexpurple'}>Todo Title</Form.Label>
+                                <p className={'small fw-lighter text-lexlightpurple mb-0'}>(Required)</p>
                             </div>
-                            <Form.Control className={'border-lexlightorange'} value={todoTitle}
+                            <Form.Control className={'border-lexpurple'} value={todoTitle}
                                           onChange={(e) => setTodoTitle(e.target.value)} required
                                           type="text" placeholder="My Todo Title"/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <div className={'d-flex gap-1'}>
-                                <Form.Label>Todo Description</Form.Label>
-                                <p className={'small text-black-50 mb-0'}>(Optional)</p>
+                                <Form.Label  className={'text-lexpurple'}>Todo Description</Form.Label>
+                                <p className={'small text-lexlightpurple mb-0'}>(Optional)</p>
                             </div>
-                            <Form.Control className={'border-lexlightorange'} value={todoBody}
+                            <Form.Control className={'border-lexpurple'} value={todoBody}
                                               onChange={(e) => setTodoBody(e.target.value)}
                                               as="textarea"
                                               rows={4} placeholder='My Todo Description'/>
@@ -167,14 +167,14 @@ function App() {
                                 onClick={removeCompleted} variant={'outline-primary'}
                                 type='button'>Remove all Completed</Button>
                         <ConfirmModal Disabled={isEditing} ButtonName={'Remove all Todos'}
-                                      ModalHeading={'Delete all Todos'}
+                                      ModalHeading={'Remove all Todos'}
                                       Onclick={() => setTodos([])}
-                                      ModalBody={'Would you like to Delete all Todos?'}/>
+                                      ModalBody={'Would you like to Remove all Todos?'}/>
                     </div>
                 </div>
 
                 {/* Right Side of the Panel */}
-                <div className={'w-75 container-todo border-top border-lexpurple p-2'}>
+                <div className={'w-75 container-todo border-top border-dark-subtle p-2'}>
                     {todos.length === 0 ?
                         <div className={'h-100 d-flex justify-content-center align-items-center flex-column'}>
                             <img src={emptyLogo} alt="empty-task"/>
