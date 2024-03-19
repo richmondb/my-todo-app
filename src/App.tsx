@@ -1,33 +1,80 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import TodoItem from "./components/TodoItem.tsx";
-import Todo from "./interface/Todo.ts";
 import emptyLogo from "./assets/empty-list.svg"
 import ConfirmModal from "./components/ConfirmModal.tsx";
+import axios from "axios";
+import {TodoAPI} from "./interface/TodoAPI.ts";
 
 function App() {
-    const [todos, setTodos] = React.useState<Todo[]>([]);
-    const [todoTitle, setTodoTitle] = React.useState('');
-    const [todoBody, setTodoBody] = React.useState('');
-    const [isEditing, setEditing] = React.useState(false);
-    const [editingIndex, setEditingIndex] = React.useState(0);
+    const [todos, setTodos] = useState<TodoAPI[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [todoTitle, setTodoTitle] = useState('');
+    const [todoBody, setTodoBody] = useState('');
+    const [isEditing, setEditing] = useState(false);
+    const [editingIndex, setEditingIndex] = useState(0);
 
     /**
      * Function to add a new todo item.
      *
-     * @param {React.FormEvent} e - the form event
      * @return {void} no return value
+     * @param event
      */
-    const addTodo: (e: React.FormEvent) => void = (e: React.FormEvent): void => {
-        e.preventDefault();
-        // Use a functional update to ensure we always have the most current state
-        setTodos(prevTodos => [...prevTodos, {
-            title: todoTitle, body: todoBody, completed: false, date: new Date().toLocaleString()
-        }]);
-        // Reset the form input contents
-        setTodoTitle('');
-        setTodoBody('');
+
+    /**
+     * Handles form submission for creating a new todo.
+     *
+     * - Prevents empty submissions by checking if `todoTitle` is trimmed.
+     * - Makes a POST request using Axios to `http://127.0.0.1:8000/api/v1/todos` with the following data:
+     *   - `title`: The value of the `todoTitle` state.
+     *   - `text`: The value of the `todoBody` state (optional).
+     *   - `completed`: Set to `false` by default.
+     * - On success:
+     *   - Logs the ID of the newly created todo to the console.
+     *   - Updates the `todos` state by appending a new todo object with the following properties:
+     *     - `id`: The ID retrieved from the response (`res.data.todo.id`).
+     *     - `title`: The value of the `todoTitle` state.
+     *     - `text`: The value of the `todoBody` state (optional).
+     *     - `completed`: Set to `false`.
+     *     - `created_at`: The created timestamp from the response (optional, depending on API).
+     *     - `updated_at`: The updated timestamp from the response (optional, depending on API).
+     * - On error:
+     *   - Logs the error to the console.
+     * - Finally (always executed):
+     *   - Resets the form input values by setting `todoTitle` and `todoBody` states to empty strings.
+     *
+     * @param {React.FormEvent<HTMLFormElement>} event The form submission event object.
+     * @return {Promise<void>}
+     */
+    const handleFormSubmit = async (event: React.FormEvent): Promise<void> => {
+        event.preventDefault();
+        if (!todoTitle.trim()) {
+            return; // Avoid empty submissions
+        }
+        try {
+            const res = await axios.post('http://127.0.0.1:8000/api/v1/todos',
+                {
+                    title: todoTitle,
+                    text: todoBody,
+                    completed: false
+                });
+            if (res) {
+                console.log(res.data.todo.id)
+                setTodos(prevTodos => [...prevTodos, {
+                    id: res.data.todo.id,
+                    title: todoTitle, text: res.data.todo.text, completed: res.data.todo.completed,
+                    created_at: res.data.todo.created_at, updated_at: res.data.todo.updated_at
+                }]);
+            }
+        } catch (e) {
+            console.log(e)
+        } finally {
+            // Reset the form input contents
+            setTodoTitle('');
+            setTodoBody('');
+        }
+
     };
 
 
@@ -64,11 +111,11 @@ function App() {
      */
     const editTodo = (index: number): void => {
         // Access the specific todo item using destructuring
-        const {title, body} = todos[index] || {};
+        const {title, text} = todos[index] || {};
 
         // Set state values for editing
         setTodoTitle(title);
-        setTodoBody(body);
+        setTodoBody(text);
         setEditingIndex(index);
         setEditing(true);
     };
@@ -82,7 +129,7 @@ function App() {
      */
     const saveEdit = (index: number): void => {
         setTodos((prevTodos) => prevTodos.map((todo, i) => i === index ? {
-            ...todo, title: todoTitle, body: todoBody
+            ...todo, title: todoTitle, text: todoBody
         } : todo));
         // Reset state for new todo input
         setTodoTitle('');
@@ -91,7 +138,6 @@ function App() {
         setEditing(false);
     };
 
-
     const removeCompleted = (): void => setTodos(todos.filter(todo => !todo.completed));
 
     const markAllComplete = (): void => setTodos(todos.map(todo => ({...todo, completed: true})));
@@ -99,26 +145,45 @@ function App() {
     const markAllIncomplete = (): void => setTodos(todos.map(todo => ({...todo, completed: false})));
 
     /**
-     * Executes the specified effect function when the component mounts, retrieving and setting the 'todos' state from localStorage if it exists.
+     * Fetches a list of todos asynchronously.
+     *
+     * Uses Axios to make a GET request to the provided URL (`http://127.0.0.1:8000/api/v1/todos`).
+     *
+     * - On success:
+     *   - Logs the fetched data to the console.
+     *   - Updates the `todos` state with the fetched data (`res.data.data`).
+     * - On error:
+     *   - Logs the error to the console.
+     * - Finally (always executed):
+     *   - Sets the `setLoading` state to `false` to indicate loading completion.
+     *
+     * @return {Promise<void>}
      */
-    useEffect(() => {
-        if (localStorage.getItem('todos') != null) {
-            setTodos(JSON.parse(localStorage.getItem('todos') || '[]'));
+    const fetchTodo = async (): Promise<void> => {
+        try {
+            const res = await axios.get('http://127.0.0.1:8000/api/v1/todos')
+            console.log(res.data.data)
+            setTodos(res.data.data);
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setLoading(false);
         }
-    }, []);
+    }
 
     /**
-     * Executes the specified effect function when the 'todos' state changes, storing the data in localStorage if 'todos' is not empty.
+     * Runs a side effect after the component mounts.
+     *
+     * Fetches todos using the `fetchTodo` function and then sets the `setLoading` state to `false`
+     * to indicate that loading is complete.
+     *
+     * @return {function} Cleanup function to be executed when the component unmounts.
      */
     useEffect(() => {
-        // Store data only if todos is not empty
-        if (todos.length > 0) {
-            localStorage.setItem('todos', JSON.stringify(todos));
-        } else {
-            // Clear localStorage if todos is empty
-            localStorage.removeItem('todos');
-        }
-    }, [todos]);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        fetchTodo().then(r => setLoading(false))
+    }, []);
+
 
     return (<>
         <div className={'container-custom shadow-lg border border-dark-subtle rounded-2'}>
@@ -127,8 +192,9 @@ function App() {
             </div>
             <div className={'d-flex'}>
                 {/* Left Side of the Panel */}
-                <div className={'w-50 d-flex flex-column justify-content-between border-end border-top border-dark-subtle p-2'}>
-                    <Form onSubmit={addTodo}>
+                <div
+                    className={'w-50 d-flex flex-column justify-content-between border-end border-top border-dark-subtle p-2'}>
+                    <Form onSubmit={handleFormSubmit}>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <div className={'d-flex gap-1'}>
                                 <Form.Label className={'text-lexpurple'}>Todo Title</Form.Label>
@@ -140,13 +206,13 @@ function App() {
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <div className={'d-flex gap-1'}>
-                                <Form.Label  className={'text-lexpurple'}>Todo Description</Form.Label>
+                                <Form.Label className={'text-lexpurple'}>Todo Description</Form.Label>
                                 <p className={'small text-lexlightpurple mb-0'}>(Optional)</p>
                             </div>
                             <Form.Control className={'border-lexpurple'} value={todoBody}
-                                              onChange={(e) => setTodoBody(e.target.value)}
-                                              as="textarea"
-                                              rows={4} placeholder='My Todo Description'/>
+                                          onChange={(e) => setTodoBody(e.target.value)}
+                                          as="textarea"
+                                          rows={4} placeholder='My Todo Description'/>
                         </Form.Group>
                         <div className='d-flex gap-2'>
                             <Button className={'btn-lexorange w-100'} disabled={isEditing} type='submit'>Add

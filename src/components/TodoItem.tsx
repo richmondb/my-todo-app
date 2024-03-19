@@ -1,15 +1,31 @@
-import Todo from "../interface/Todo";
 import Button from "react-bootstrap/Button";
 import ItemConfirmModal from "./ItemConfirmModal.tsx";
+import {TodoAPI} from "../interface/TodoAPI.ts";
 
 function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: {
     index: number,
     isEditing: boolean,
-    todo: Todo,
+    todo: TodoAPI,
     removeTodo: (index: number) => void,
     completeTodo: (index: number) => void,
     editTodo: (index: number) => void
 }) {
+
+    function prettifyTimestamp(timestamp: string): string {
+        // Use the built-in Date object for compatibility
+        const parsedDate = new Date(timestamp);
+
+        // Format the date using toLocaleString() for flexibility
+        return parsedDate.toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            timeZoneName: 'short', // Include time zone abbreviation
+        });
+    }
+
     return (<div key={index} className={`p-2 bg-white border ${todo.completed ? 'border-lexpurple' : ''}  rounded-1`}
                  id='card-container'>
             <div className='d-flex justify-content-between align-items-center' id='card-title'>
@@ -43,12 +59,12 @@ function TodoItem({index, todo, removeTodo, completeTodo, editTodo, isEditing}: 
             </div>
             <div id='card-body' className={'border-top mt-2'}>
                 <p className={`w-100 py-1 ${todo.completed ? 'text-decoration-line-through opacity-75' : ''} text-lexpurple  text-break text-pretty mb-0`}>
-                    {todo.body}
+                    {todo.text}
                 </p>
             </div>
             <div className={'d-flex justify-content-end'}>
                 <p className={'mb-0 small text-lexlightpurple text-opacity-75'}>Date
-                    Created: {todo.date}</p>
+                    Created: {prettifyTimestamp(todo.created_at)}</p>
             </div>
 
         </div>);
