@@ -31,8 +31,8 @@ body {
     align-items: center;
     min-width: 320px;
     min-height: 100vh;
-    /*background-color: var(--bs-body-bg);*/
-    background-image: linear-gradient(to right bottom, #5e1b89, #a01080, #d0286f, #ef515d, #ff7f4d);
+    background-color: var(--bs-body-bg);
+    /*background-image: linear-gradient(to right bottom, #5e1b89, #a01080, #d0286f, #ef515d, #ff7f4d);*/
 }
 
 .container-custom {
